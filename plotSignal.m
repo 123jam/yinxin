@@ -1,29 +1,26 @@
 function plotSignal(signal,para,name)
 %% ==========================================================
 % 文件名：plotSignal.m
-% 功能：连续LFM信号时域幅度
-% ==========================================================
+% 功能：绘制信号
+% ===========================================================
 
 figure;
 
-plot(para.t * 1e6,...
-     abs(signal),...
-     'LineWidth',1.5);
+% 绘制信号的实部（波形）
+plot(para.t*1e6, real(signal), 'b', 'LineWidth', 1);
 
+hold on;
+
+% 绘制包络
+plot(para.t*1e6, abs(signal), 'r--', 'LineWidth', 2, 'DisplayName', 'Envelope');
+plot(para.t*1e6, -abs(signal), 'r--', 'LineWidth', 2);
+
+hold off;
+
+xlabel('Time (\mu s)', 'FontSize', 12);
+ylabel('Amplitude', 'FontSize', 12);
+title(name, 'FontSize', 13);
 grid on;
-box on;
-
-xlabel('Time (\mus)');
-ylabel('Amplitude');
-
-title(name);
-
-xlim([0 para.Tobs*1e6]);
-
-ylim([0 1.2]);
-
-set(gca,...
-    'FontSize',12,...
-    'LineWidth',1.1);
+legend;
 
 end
